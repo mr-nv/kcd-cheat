@@ -35,7 +35,7 @@ function cheat:find_skill(searchKey, returnAll)
         local skill = {}
         skill.skill_id = skill_id
         skill.skill_name = skill_name
-        skills[perk_id] = skill
+        table.insert(skills, skill)
       end
 
       cheat:logInfo("Found skill [%s] with id [%s].", tostring(skill_name), tostring(skill_id))
@@ -99,6 +99,31 @@ function cheat:cheat_set_skill_level(line)
     else
       cheat:logError("Skill [%s] not found.", tostring(skill))
     end
+  end
+  return false
+end
+
+-- ============================================================================
+-- cheat_set_all_skills_level
+-- ============================================================================
+cheat.cheat_set_all_skills_level_args = {
+  level=function(args,name,showHelp) return cheat:argsGetRequiredNumber(args, name, showHelp, "The desired level for all skills (max 20).") end
+}
+
+cheat:createCommand("cheat_set_all_skills_level", "cheat:cheat_set_all_skills_level(%line)", cheat.cheat_set_all_skills_level_args,
+  "Sets all player's skills to the given level.",
+  "Set all player's skills to level 20", "cheat_set_all_skills_level level:20")
+function cheat:cheat_set_all_skills_level(line)
+  local args = cheat:argsProcess(line, cheat.cheat_set_all_skills_level_args)
+  local level, levelErr = cheat:argsGet(args, 'level')
+
+  if not levelErr then
+    local skills = cheat:find_skill(nil, true)
+    for i = 1, #skills do
+      player.soul:AdvanceToSkillLevel(skills[i].skill_name, level)
+      cheat:logInfo("Set skill [%s] to level [%s].", tostring(skills[i].skill_name), tostring(level))
+    end
+    return true
   end
   return false
 end

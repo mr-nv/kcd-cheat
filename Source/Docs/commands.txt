@@ -41,6 +41,7 @@ cheat_repair_all_items
 cheat_reveal_map
 cheat_save
 cheat_set_all_merchants_fence
+cheat_set_all_skills_level
 cheat_set_bow_reticle
 cheat_set_horse
 cheat_set_regen

@@ -593,6 +593,18 @@ Restarting the game reverts this effect.
 
 
 
+[size=4][b]cheat_set_all_skills_level[/b][/size]
+Sets all player's skills to the given level.
+
+[b]Arguments:[/b]
+ level: (required number) The desired level for all skills (max 20).
+
+[b]Examples:[/b]
+ Set all player's skills to level 20:
+ cheat_set_all_skills_level level:20
+
+
+
 [size=4][b]cheat_find_perks[/b][/size]
 Finds all of the perks that match the given token.
 
